@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 
@@ -22,10 +21,10 @@ public class MerchantController {
     public Merchant add(@RequestBody MerchantDTO merchantDTO) {
         Merchant merchant=new Merchant();
         BeanUtils.copyProperties(merchantDTO,merchant);
-        Calendar cal = Calendar. getInstance();
-        Date date=cal. getTime();
-        DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-        String formattedDate=dateFormat. format(date);
+        Date date;
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        date=new Date();
+        String formattedDate=dateFormat.format(date);
         merchant.setDateOfJoining(formattedDate);
         return merchantService.addMerchant(merchant);
     }
