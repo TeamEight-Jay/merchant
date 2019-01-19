@@ -12,6 +12,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+
+@RestController
 public class MerchantController {
     @Autowired
     private MerchantService merchantService;
