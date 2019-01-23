@@ -8,4 +8,5 @@ public interface MerchantService {
     Merchant selectMerchant(String merchantId);
     Merchant update(Merchant merchant);
     void delete(String merchantId);
+    float merchantRating(String merchantId);
 }

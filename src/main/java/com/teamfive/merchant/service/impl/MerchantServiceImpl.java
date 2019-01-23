@@ -39,4 +39,13 @@ public class MerchantServiceImpl implements MerchantService {
     public void delete(String merchantId) {
         merchantRepository.delete(merchantId);
     }
+
+    @Override
+    public float merchantRating(String merchantId) {
+        Merchant merchant=merchantRepository.findOne(merchantId);
+        if(merchant==null) return 0;
+        return merchant.getMerchantRating();
+    }
+
+
 }

@@ -18,6 +18,16 @@ public class Merchant {
     private String merchantName;
     private String dateOfJoining;
 
+    private float merchantRating;
+
+    public float getMerchantRating() {
+        return merchantRating;
+    }
+
+    public void setMerchantRating(float merchantRating) {
+        this.merchantRating = merchantRating;
+    }
+
     public String getMerchantId() {
         return merchantId;
     }
@@ -44,10 +54,11 @@ public class Merchant {
 
     @Override
     public String toString() {
-        return "MerchantDTO{" +
+        return "Merchant{" +
                 "merchantId='" + merchantId + '\'' +
                 ", merchantName='" + merchantName + '\'' +
                 ", dateOfJoining='" + dateOfJoining + '\'' +
+                ", merchantRating=" + merchantRating +
                 '}';
     }
 }

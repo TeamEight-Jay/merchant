@@ -17,7 +17,7 @@ public class MerchantController {
     @Autowired
     private MerchantService merchantService;
 
-    @PostMapping(value = "/addMerchant")
+    @PostMapping(value = "/merchant/add")
     public Merchant add(@RequestBody MerchantDTO merchantDTO) {
         Merchant merchant=new Merchant();
         BeanUtils.copyProperties(merchantDTO,merchant);
@@ -26,13 +26,21 @@ public class MerchantController {
         date=new Date();
         String formattedDate=dateFormat.format(date);
         merchant.setDateOfJoining(formattedDate);
+        merchant.setMerchantRating(2.5f);
         return merchantService.addMerchant(merchant);
     }
 
-    @RequestMapping(value = "/getMerchant",method = RequestMethod.GET)
+    @RequestMapping(value = "/merchant/get",method = RequestMethod.GET)
     public Merchant select(@RequestParam String merchantId) {
         Merchant merchant=merchantService.selectMerchant(merchantId);
         return merchant;
+    }
+
+    @RequestMapping(value = "/merchant/check",method = RequestMethod.GET)
+    public String check(@RequestParam String merchantId) {
+        Merchant merchant=merchantService.selectMerchant(merchantId);
+        if(merchant==null) return null;
+        return merchant.getMerchantName();
     }
 
     @RequestMapping(value = "/updateMerchant",method = RequestMethod.PUT)
@@ -45,6 +53,12 @@ public class MerchantController {
     @RequestMapping(value = "/deleteMerchant",method = RequestMethod.DELETE)
     public void delete(@RequestParam String merchantId) {
         merchantService.delete(merchantId);
+    }
+
+    @GetMapping(value = "/merchant/rating/{merchantId}")
+    public float getRating(@PathVariable String merchantId)
+    {
+        return merchantService.merchantRating(merchantId);
     }
 
 }
