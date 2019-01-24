@@ -1,7 +1,6 @@
 package com.teamfive.merchant.service.impl;
 
 
-import com.teamfive.merchant.dto.MerchantDTO;
 import com.teamfive.merchant.entity.Merchant;
 import com.teamfive.merchant.repository.MerchantRepository;
 import com.teamfive.merchant.service.MerchantService;

@@ -1,5 +1,6 @@
 package com.teamfive.merchant.controller;
 
+import com.teamfive.merchant.dto.MerchantCreateDTO;
 import com.teamfive.merchant.dto.MerchantDTO;
 import com.teamfive.merchant.entity.Merchant;
 import com.teamfive.merchant.service.MerchantService;
@@ -18,36 +19,38 @@ public class MerchantController {
     private MerchantService merchantService;
 
     @PostMapping(value = "/merchant/add")
-    public Merchant add(@RequestBody MerchantDTO merchantDTO) {
+    public MerchantDTO add(@RequestBody MerchantCreateDTO merchantCreateDTO) {
         Merchant merchant=new Merchant();
-        BeanUtils.copyProperties(merchantDTO,merchant);
+        BeanUtils.copyProperties(merchantCreateDTO,merchant);
         Date date;
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         date=new Date();
         String formattedDate=dateFormat.format(date);
         merchant.setDateOfJoining(formattedDate);
         merchant.setMerchantRating(2.5f);
-        return merchantService.addMerchant(merchant);
+        merchant=merchantService.addMerchant(merchant);
+        MerchantDTO merchantDTO=new MerchantDTO();
+        BeanUtils.copyProperties(merchant,merchantDTO);
+        return merchantDTO;
     }
 
     @RequestMapping(value = "/merchant/get",method = RequestMethod.GET)
-    public Merchant select(@RequestParam String merchantId) {
+    public MerchantDTO select(@RequestParam String merchantId) {
         Merchant merchant=merchantService.selectMerchant(merchantId);
-        return merchant;
-    }
-
-    @RequestMapping(value = "/merchant/check",method = RequestMethod.GET)
-    public String check(@RequestParam String merchantId) {
-        Merchant merchant=merchantService.selectMerchant(merchantId);
-        if(merchant==null) return null;
-        return merchant.getMerchantName();
+        if(merchant==null) return new MerchantDTO();
+        MerchantDTO merchantDTO=new MerchantDTO();
+        BeanUtils.copyProperties(merchant,merchantDTO);
+        return merchantDTO;
     }
 
     @RequestMapping(value = "/updateMerchant",method = RequestMethod.PUT)
-    public Merchant update(@RequestBody MerchantDTO merchantDTO) {
+    public MerchantDTO update(@RequestBody MerchantCreateDTO merchantCreateDTO) {
         Merchant merchant=new Merchant();
-        BeanUtils.copyProperties(merchantDTO,merchant);
-        return merchantService.update(merchant);
+        BeanUtils.copyProperties(merchantCreateDTO,merchant);
+        merchant=merchantService.update(merchant);
+        MerchantDTO merchantDTO=new MerchantDTO();
+        BeanUtils.copyProperties(merchant,merchantDTO);
+        return merchantDTO;
     }
 
     @RequestMapping(value = "/deleteMerchant",method = RequestMethod.DELETE)

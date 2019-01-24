@@ -1,7 +1,32 @@
 package com.teamfive.merchant.dto;
 
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
+
 public class MerchantDTO {
+
+    private String merchantId;
     private String merchantName;
+    private String dateOfJoining;
+
+    private float merchantRating;
+
+    public float getMerchantRating() {
+        return merchantRating;
+    }
+
+    public void setMerchantRating(float merchantRating) {
+        this.merchantRating = merchantRating;
+    }
+
+    public String getMerchantId() {
+        return merchantId;
+    }
+
+    public void setMerchantId(String merchantId) {
+        this.merchantId = merchantId;
+    }
 
     public String getMerchantName() {
         return merchantName;
@@ -11,10 +36,21 @@ public class MerchantDTO {
         this.merchantName = merchantName;
     }
 
+    public String getDateOfJoining() {
+        return dateOfJoining;
+    }
+
+    public void setDateOfJoining(String dateOfJoining) {
+        this.dateOfJoining = dateOfJoining;
+    }
+
     @Override
     public String toString() {
-        return "MerchantDTO{" +
+        return "Merchant{" +
+                "merchantId='" + merchantId + '\'' +
                 ", merchantName='" + merchantName + '\'' +
+                ", dateOfJoining='" + dateOfJoining + '\'' +
+                ", merchantRating=" + merchantRating +
                 '}';
     }
 }
