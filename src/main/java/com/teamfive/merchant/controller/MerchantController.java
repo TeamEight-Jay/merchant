@@ -2,10 +2,12 @@ package com.teamfive.merchant.controller;
 
 import com.teamfive.merchant.dto.MerchantCreateDTO;
 import com.teamfive.merchant.dto.MerchantDTO;
+import com.teamfive.merchant.dto.ratingUpdateKafkaMessage;
 import com.teamfive.merchant.entity.Merchant;
 import com.teamfive.merchant.service.MerchantService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.DateFormat;
@@ -59,9 +61,15 @@ public class MerchantController {
     }
 
     @GetMapping(value = "/merchant/rating/{merchantId}")
-    public float getRating(@PathVariable String merchantId)
+    public double getRating(@PathVariable String merchantId)
     {
         return merchantService.merchantRating(merchantId);
+    }
+
+    @KafkaListener(topics = "ORDER_RATING",group = "group_order_rating",containerFactory = "orderRatingKafkaListenerFactory")
+    private void updateRating(ratingUpdateKafkaMessage ratingUpdateKafkaMessage)
+    {
+        merchantService.updateRating(ratingUpdateKafkaMessage);
     }
 
 }

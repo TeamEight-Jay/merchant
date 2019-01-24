@@ -18,13 +18,13 @@ public class Merchant {
     private String merchantName;
     private String dateOfJoining;
 
-    private float merchantRating;
+    private double merchantRating;
 
-    public float getMerchantRating() {
+    public double getMerchantRating() {
         return merchantRating;
     }
 
-    public void setMerchantRating(float merchantRating) {
+    public void setMerchantRating(double merchantRating) {
         this.merchantRating = merchantRating;
     }
 
